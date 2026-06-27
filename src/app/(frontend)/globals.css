@@ -94,7 +94,20 @@ h1,h2,h3,h4{font-family:var(--display);color:var(--ink);font-weight:600;line-hei
 .header-cta .visit{font-weight:600;font-size:.93rem;color:var(--ink);display:inline-flex;gap:7px;align-items:center}
 .header-cta .visit:hover{color:var(--emerald-ink)}
 .btn-mini{padding:10px 20px;min-height:42px;font-size:.9rem;border-radius:6px}
-@media(max-width:1080px){.menu{display:none}.header-cta .visit{display:none}}
+/* ---- mobile nav (hamburger + slide-down panel) ---- */
+.nav-toggle{display:none;width:42px;height:42px;border:1px solid var(--line);border-radius:10px;background:rgba(255,255,255,.45);cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:0}
+.nav-toggle span{display:block;width:20px;height:2px;background:var(--indigo);border-radius:2px;transition:transform .25s var(--ease),opacity .2s var(--ease)}
+.nav-toggle.is-open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.nav-toggle.is-open span:nth-child(2){opacity:0}
+.nav-toggle.is-open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.mobile-menu{position:absolute;top:100%;left:0;right:0;display:none;max-height:0;overflow:hidden;background:rgba(244,241,232,.98);backdrop-filter:blur(14px) saturate(1.2);border-bottom:1px solid var(--line);box-shadow:0 20px 44px -26px rgba(20,17,58,.45);transition:max-height .34s var(--ease)}
+.mobile-menu.is-open{max-height:580px}
+.mobile-menu nav{display:flex;flex-direction:column;padding:4px clamp(18px,6vw,34px) 22px}
+.mobile-menu nav a{padding:15px 2px;font-weight:500;font-size:1.05rem;color:var(--ink);border-top:1px solid var(--line)}
+.mobile-menu nav a:first-child{border-top:0}
+.mobile-menu nav a[aria-current]{color:var(--indigo)}
+.mobile-menu nav .btn{margin-top:18px;justify-content:center}
+@media(max-width:1080px){.menu{display:none}.header-cta .visit{display:none}.nav-toggle{display:inline-flex}.mobile-menu{display:block}}
 
 /* ---------- section scaffolding ---------- */
 section{padding:clamp(64px,9vw,128px) 0;position:relative}
