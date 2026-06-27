@@ -1,0 +1,20 @@
+node_modules
+.next
+/build
+/dist
+
+# env
+.env
+.env*.local
+
+# payload / sqlite
+thg.db
+thg.db-*
+*.sqlite
+/media
+
+# misc
+.DS_Store
+*.log
+.vercel
+next-env.d.ts
