@@ -1,6 +1,7 @@
 import { getPayload } from 'payload'
 import config from '@payload-config'
-import { sermonDate, fullDate, placeholder } from '@/lib/format'
+import { sermonDate, fullDate } from '@/lib/format'
+import { IMG, SERMON_POOL, fromPool } from '@/lib/images'
 import { getPageHero } from '@/lib/page'
 
 export const metadata = { title: 'Sermons' }
@@ -29,7 +30,7 @@ export default async function SermonsPage() {
           {latest ? (
             <div style={{ marginTop: 20, border: '1px solid var(--line)', borderRadius: 16, overflow: 'hidden', background: 'var(--surface)' }}>
               <div style={{ position: 'relative', aspectRatio: '16 / 7', minHeight: 280, background: '#14113A' }}>
-                <img className="img" src="/assets/ph-a.svg" alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
+                <img className="img" src={IMG.sermon} alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
               </div>
               <div style={{ padding: '28px clamp(24px,4vw,40px)' }}>
                 <div style={{ color: 'var(--muted)', fontSize: '.9rem' }}>{fullDate(latest.date)}{latest.speaker ? ` · ${latest.speaker}` : ''}</div>
@@ -52,7 +53,7 @@ export default async function SermonsPage() {
             <div className="cardgrid">
               {rest.map((s, i) => (
                 <a className="card" href="#" key={s.id}>
-                  <div className="ph"><img className="img" src={`/assets/ph-${placeholder(i + 1)}.svg`} alt="" /><div className="ph-grain"></div></div>
+                  <div className="ph"><img className="img" src={fromPool(SERMON_POOL, i + 1)} alt="" /><div className="ph-grain"></div></div>
                   <div className="body"><div style={{ color: 'var(--muted)', fontSize: '.85rem' }}>{sermonDate(s.date)}</div><h3 style={{ marginTop: 6 }}>{s.title}</h3>{s.series && <p>{s.series}</p>}</div>
                 </a>
               ))}

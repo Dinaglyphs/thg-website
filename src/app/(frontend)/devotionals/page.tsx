@@ -1,6 +1,7 @@
 import { getPayload } from 'payload'
 import config from '@payload-config'
-import { fullDate, shortDay, placeholder } from '@/lib/format'
+import { fullDate, shortDay } from '@/lib/format'
+import { IMG, SCRIPTURE_POOL, fromPool } from '@/lib/images'
 import { getPageHero } from '@/lib/page'
 
 export const metadata = { title: 'Devotionals' }
@@ -28,7 +29,7 @@ export default async function DevotionalsPage() {
           <div className="wrap">
             <div style={{ display: 'grid', gridTemplateColumns: '.95fr 1.05fr', gap: 0, border: '1px solid var(--line)', borderRadius: 18, overflow: 'hidden', background: 'var(--surface)' }}>
               <div style={{ position: 'relative', minHeight: 340 }}>
-                <img src="/assets/ph-d.svg" alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
+                <img src={IMG.scripture} alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
                 <span className="cap" style={{ position: 'absolute', left: 18, bottom: 16, fontSize: '.66rem', letterSpacing: '.18em', textTransform: 'uppercase', color: 'rgba(255,255,255,.8)' }}>Today · {fullDate(today.date)}</span>
               </div>
               <div style={{ padding: 'clamp(28px,4vw,48px)', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
@@ -52,7 +53,7 @@ export default async function DevotionalsPage() {
             <div className="cardgrid">
               {rest.map((d, i) => (
                 <a className="card" href="#" key={d.id}>
-                  <div className="ph"><img className="img" src={`/assets/ph-${placeholder(i)}.svg`} alt="" /><div className="ph-grain"></div><span className="cap">{shortDay(d.date)}</span></div>
+                  <div className="ph"><img className="img" src={fromPool(SCRIPTURE_POOL, i + 1)} alt="" /><div className="ph-grain"></div><span className="cap">{shortDay(d.date)}</span></div>
                   <div className="body"><h3>{d.title}</h3>{d.scriptureText && <p>{d.scriptureText} {d.scriptureRef ? `— ${d.scriptureRef}` : ''}</p>}<span className="more">Read <span className="arw">→</span></span></div>
                 </a>
               ))}

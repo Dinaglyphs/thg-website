@@ -1,7 +1,8 @@
 import Link from 'next/link'
 import { getPayload } from 'payload'
 import config from '@payload-config'
-import { dayNum, monShort, fullDate, placeholder } from '@/lib/format'
+import { dayNum, monShort, fullDate } from '@/lib/format'
+import { deptImage, IMG } from '@/lib/images'
 
 export const dynamic = 'force-dynamic'
 
@@ -35,8 +36,7 @@ export default async function HomePage() {
             </div>
           </div>
           <div className="hero-figure">
-            <img className="img" src="/assets/ph-a.svg" alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
-            <span className="figcap">Photography to come</span>
+            <img className="img" src={IMG.hero} alt="Worship at Treasure House of God" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
             <div className="figtag"><div className="k">Gather with us · Sundays</div><div className="v">10:00am</div></div>
           </div>
         </div>
@@ -113,7 +113,7 @@ export default async function HomePage() {
             {departments.map((d, i) => (
               <Link className="card" href="/departments" key={d.id}>
                 <div className="ph">
-                  <img className="img" src={`/assets/ph-${placeholder(i)}.svg`} alt="" />
+                  <img className="img" src={deptImage(d.slug, i)} alt={d.title} />
                   <div className="ph-grain"></div>
                   <span className="cap">{d.title}</span>
                 </div>
@@ -158,7 +158,7 @@ export default async function HomePage() {
             <div className="cardgrid" style={{ gridTemplateColumns: '1fr', marginTop: 0 }}>
               <Link className="card" href="/devotionals" style={{ background: 'rgba(255,255,255,.04)', borderColor: 'rgba(255,255,255,.14)' }}>
                 <div className="ph" style={{ height: 170 }}>
-                  <img className="img" src="/assets/ph-d.svg" alt="" />
+                  <img className="img" src={IMG.scripture} alt="" />
                   <div className="ph-grain"></div>
                   <span className="cap">Today · {fullDate(devotional.date)}</span>
                 </div>

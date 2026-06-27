@@ -1,6 +1,7 @@
 import { getPayload } from 'payload'
 import config from '@payload-config'
 import { dayNum, monShort, fullDate } from '@/lib/format'
+import { IMG } from '@/lib/images'
 import { getPageHero } from '@/lib/page'
 
 export const metadata = { title: 'Events' }
@@ -29,7 +30,7 @@ export default async function EventsPage() {
             <span className="label">Featured</span>
             <div style={{ display: 'grid', gridTemplateColumns: '1.1fr .9fr', gap: 0, marginTop: 22, border: '1px solid var(--line)', borderRadius: 16, overflow: 'hidden', background: 'var(--surface)' }}>
               <div style={{ position: 'relative', minHeight: 320 }}>
-                <img className="img" src="/assets/ph-a.svg" alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
+                <img className="img" src={IMG.event} alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
                 <span className={`tag ${featured.format === 'online' ? 'tag--online' : 'tag--inperson'}`} style={{ position: 'absolute', top: 18, left: 18 }}>{featured.format === 'online' ? 'Online' : 'In person'}</span>
               </div>
               <div style={{ padding: 'clamp(28px,4vw,48px)', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>

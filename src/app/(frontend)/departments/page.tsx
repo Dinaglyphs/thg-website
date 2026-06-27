@@ -1,6 +1,6 @@
 import { getPayload } from 'payload'
 import config from '@payload-config'
-import { placeholder } from '@/lib/format'
+import { deptImage } from '@/lib/images'
 import { getPageHero } from '@/lib/page'
 
 export const metadata = { title: 'Departments' }
@@ -32,7 +32,7 @@ export default async function DepartmentsPage() {
               {ministries.map((d, i) => (
                 <a className="card" href="/contact" key={d.id}>
                   <div className="ph">
-                    <img className="img" src={`/assets/ph-${placeholder(i)}.svg`} alt="" />
+                    <img className="img" src={deptImage(d.slug, i)} alt={d.title} />
                     <div className="ph-grain"></div>
                     <span className="cap">{d.title}</span>
                   </div>
