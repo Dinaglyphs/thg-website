@@ -50,11 +50,6 @@ export default buildConfig({
       // Locally this is undefined and the file database above is used.
       authToken: process.env.DATABASE_AUTH_TOKEN,
     },
-    // Sync the schema to the database on startup (creates tables on a fresh
-    // database). Enabled in all environments so a brand-new production
-    // database (e.g. Turso) initialises itself on first boot. Idempotent:
-    // once the tables exist this is a no-op diff.
-    push: true,
   }),
   sharp,
   // Ensure starter content exists on startup. Idempotent: only creates what's
