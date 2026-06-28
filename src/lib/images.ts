@@ -14,13 +14,13 @@ const px = (id: number, w = 1200): string =>
 
 // One relevant image per department, keyed by slug.
 export const DEPT_IMAGE: Record<string, string> = {
-  children: px(14935332), // joyful African children
-  youth: px(32617902), // young friends, Abuja
+  children: px(18541185), // smiling, well-dressed children
+  youth: px(27582213), // young adults, joyful
   'workers-in-training': px(34612053), // hands engaged in Bible study
   choir: px(30550589), // church choir singing (Lagos)
   'creative-arts-drama': px(31746939), // performer under stage lights (Ibadan)
   'house-fellowship': px(6860844), // small group praying and singing at home
-  'good-women': px(37629980), // women in colourful dress, joyful embrace
+  'good-women': px(36608663), // elegant women, Lagos
   "mens-fellowship": px(35388499), // young men worshipping in church
 }
 
@@ -33,7 +33,7 @@ export const IMG = {
 }
 
 // Rotating pools for lists where there isn't a one-to-one subject.
-const DEPT_POOL = [px(14935332), px(32617902), px(30550589), px(6860844)]
+const DEPT_POOL = [px(18541185), px(27582213), px(30550589), px(6860844)]
 export const SERMON_POOL = [px(8815033), px(8815002), px(12824196), px(34623024)]
 export const SCRIPTURE_POOL = [px(15382621), px(8268309), px(9446065), px(6186376)]
 

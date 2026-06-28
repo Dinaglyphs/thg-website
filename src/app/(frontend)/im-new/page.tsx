@@ -33,7 +33,7 @@ export default async function ImNewPage() {
       <section className="panel-indigo">
         <div className="wrap">
           <div className="sec-head"><h2 style={{ color: '#fff' }}>A few common questions</h2></div>
-          <div className="schedule" style={{ gridTemplateColumns: '1fr 1fr' }}>
+          <div className="schedule">
             <div><h3 style={{ fontFamily: 'var(--display)', fontSize: '1.3rem', color: '#fff' }}>What should I wear?</h3><p className="muted">Whatever you&apos;re comfortable in. You&apos;ll see everything from smart to casual.</p></div>
             <div><h3 style={{ fontFamily: 'var(--display)', fontSize: '1.3rem', color: '#fff' }}>Anything for my kids?</h3><p className="muted">Yes — a safe, fun children&apos;s ministry runs during the service, with a warm team.</p></div>
             <div><h3 style={{ fontFamily: 'var(--display)', fontSize: '1.3rem', color: '#fff', marginTop: 24 }}>Where do I park?</h3><p className="muted">There&apos;s parking at and around Gadebridge Community Centre. We&apos;ll point you the right way.</p></div>

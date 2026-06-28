@@ -34,7 +34,6 @@ export default async function DepartmentsPage() {
                   <div className="ph">
                     <img className="img" src={deptImage(d.slug, i)} alt={d.title} />
                     <div className="ph-grain"></div>
-                    <span className="cap">{d.title}</span>
                   </div>
                   <div className="body"><h3>{d.title}</h3><p>{d.excerpt}</p><span className="more">Get involved <span className="arw">→</span></span></div>
                 </a>
@@ -48,7 +47,7 @@ export default async function DepartmentsPage() {
         <section style={{ background: 'var(--paper-2)' }}>
           <div className="wrap">
             <div className="sec-head"><h2>Many hands, one house</h2><p className="intro muted">Behind every service is a team of volunteers. There&apos;s always room to serve.</p></div>
-            <div className="olist" style={{ gridTemplateColumns: 'repeat(4,1fr)' }}>
+            <div className="olist is-4">
               {teams.map((o) => (
                 <div className="o" style={{ paddingTop: 30 }} key={o.id}><h3 style={{ fontSize: '1.1rem' }}>{o.title}</h3><p className="muted">{o.excerpt}</p></div>
               ))}

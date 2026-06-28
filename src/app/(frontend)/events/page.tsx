@@ -28,8 +28,8 @@ export default async function EventsPage() {
         <section style={{ paddingBottom: 0 }}>
           <div className="wrap">
             <span className="label">Featured</span>
-            <div style={{ display: 'grid', gridTemplateColumns: '1.1fr .9fr', gap: 0, marginTop: 22, border: '1px solid var(--line)', borderRadius: 16, overflow: 'hidden', background: 'var(--surface)' }}>
-              <div style={{ position: 'relative', minHeight: 320 }}>
+            <div className="feature-split">
+              <div className="feature-split__media" style={{ position: 'relative', minHeight: 320 }}>
                 <img className="img" src={IMG.event} alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
                 <span className={`tag ${featured.format === 'online' ? 'tag--online' : 'tag--inperson'}`} style={{ position: 'absolute', top: 18, left: 18 }}>{featured.format === 'online' ? 'Online' : 'In person'}</span>
               </div>

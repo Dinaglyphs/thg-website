@@ -115,7 +115,6 @@ export default async function HomePage() {
                 <div className="ph">
                   <img className="img" src={deptImage(d.slug, i)} alt={d.title} />
                   <div className="ph-grain"></div>
-                  <span className="cap">{d.title}</span>
                 </div>
                 <div className="body"><h3>{d.title}</h3><p>{d.excerpt}</p><span className="more">Explore <span className="arw">→</span></span></div>
               </Link>

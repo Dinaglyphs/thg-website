@@ -114,7 +114,7 @@ export default async function AboutPage() {
       <section>
         <div className="wrap">
           <div className="sec-head"><h2>Mission &amp; vision</h2><p className="intro muted">The mandate that shapes every RCCG parish, ours included.</p></div>
-          <div className="olist" style={{ gridTemplateColumns: 'repeat(2,1fr)' }}>
+          <div className="olist is-2">
             {MISSION.map((m, i) => (
               <div className="o" style={{ paddingTop: 30 }} key={i}>
                 <div style={{ fontFamily: 'var(--display)', fontSize: '1.5rem', color: 'var(--gold)', lineHeight: 1 }}>{String(i + 1).padStart(2, '0')}</div>
@@ -134,7 +134,7 @@ export default async function AboutPage() {
           {BELIEFS.map((grp) => (
             <div key={grp.group} style={{ marginTop: 44 }}>
               <h3 style={{ fontSize: '1.15rem', color: 'var(--gold)', letterSpacing: '.04em', textTransform: 'uppercase' }}>{grp.group}</h3>
-              <div className="olist" style={{ gridTemplateColumns: 'repeat(2,1fr)', marginTop: 6 }}>
+              <div className="olist is-2" style={{ marginTop: 6 }}>
                 {grp.items.map((b) => (
                   <div className="o" style={{ paddingTop: 26 }} key={b.h}>
                     <h4 style={{ fontFamily: 'var(--display)', fontSize: '1.15rem', color: 'var(--ink)' }}>{b.h}</h4>
