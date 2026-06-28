@@ -23,6 +23,8 @@ const dirname = path.dirname(filename)
 export default buildConfig({
   admin: {
     user: Users.slug,
+    // Match the live site, which uses a light "paper" palette.
+    theme: 'light',
     meta: {
       titleSuffix: ' — Treasure House of God',
     },
