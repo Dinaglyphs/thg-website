@@ -156,7 +156,7 @@ export default async function HomePage() {
           </div>
           {devotional && (
             <div className="cardgrid" style={{ gridTemplateColumns: '1fr', marginTop: 0 }}>
-              <Link className="card" href="/devotionals" style={{ background: 'rgba(255,255,255,.04)', borderColor: 'rgba(255,255,255,.14)' }}>
+              <Link className="card" href={`/devotionals/${devotional.slug}`} style={{ background: 'rgba(255,255,255,.04)', borderColor: 'rgba(255,255,255,.14)' }}>
                 <div className="ph" style={{ height: 170 }}>
                   <img className="img" src={IMG.scripture} alt="" />
                   <div className="ph-grain"></div>

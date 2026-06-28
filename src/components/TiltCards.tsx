@@ -13,6 +13,9 @@ export function TiltCards() {
   useEffect(() => {
     if (typeof window === 'undefined') return
     if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    // Only run the mouse-tracking tilt on devices with a real (fine) pointer.
+    // On touchscreens this avoids a card getting "stuck" in a tilted state.
+    if (window.matchMedia && !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return
 
     const MAX = 7
     const cards = Array.from(document.querySelectorAll<HTMLElement>('.card'))

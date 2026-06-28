@@ -14,6 +14,7 @@ import { Sermons } from './collections/Sermons'
 import { Devotionals } from './collections/Devotionals'
 import { ServiceTimes } from './globals/ServiceTimes'
 import { SiteSettings } from './globals/SiteSettings'
+import { Navigation } from './globals/Navigation'
 import { seedDatabase } from './seedData'
 
 const filename = fileURLToPath(import.meta.url)
@@ -37,7 +38,7 @@ export default buildConfig({
   },
   // Order here = order shown in the admin sidebar
   collections: [Pages, Departments, Events, Sermons, Devotionals, Media, Users],
-  globals: [ServiceTimes, SiteSettings],
+  globals: [Navigation, ServiceTimes, SiteSettings],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {

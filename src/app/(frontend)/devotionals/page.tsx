@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { getPayload } from 'payload'
 import config from '@payload-config'
 import { fullDate, shortDay } from '@/lib/format'
@@ -13,6 +14,7 @@ export default async function DevotionalsPage() {
   const { docs } = await payload.find({ collection: 'devotionals', sort: '-date', limit: 100 })
   const today = docs[0] as any
   const rest = (docs as any[]).slice(1)
+  const todayImg = (today?.image && typeof today.image === 'object' && today.image.url) || IMG.scripture
 
   return (
     <>
@@ -27,20 +29,20 @@ export default async function DevotionalsPage() {
       {today && (
         <section style={{ paddingBottom: 0 }}>
           <div className="wrap">
-            <div style={{ display: 'grid', gridTemplateColumns: '.95fr 1.05fr', gap: 0, border: '1px solid var(--line)', borderRadius: 18, overflow: 'hidden', background: 'var(--surface)' }}>
-              <div style={{ position: 'relative', minHeight: 340 }}>
-                <img src={IMG.scripture} alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
-                <span className="cap" style={{ position: 'absolute', left: 18, bottom: 16, fontSize: '.66rem', letterSpacing: '.18em', textTransform: 'uppercase', color: 'rgba(255,255,255,.8)' }}>Today · {fullDate(today.date)}</span>
+            <Link className="devotion-today" href={`/devotionals/${today.slug}`}>
+              <div className="devotion-today__media">
+                <img src={todayImg} alt="" />
+                <span className="cap">Today · {fullDate(today.date)}</span>
               </div>
-              <div style={{ padding: 'clamp(28px,4vw,48px)', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+              <div className="devotion-today__body">
                 <span className="label">Today&apos;s Word</span>
                 <h2 style={{ fontSize: 'clamp(1.9rem,3vw,2.7rem)', marginTop: 12 }}>{today.title}</h2>
                 {today.scriptureText && <p className="serif-it" style={{ color: 'var(--indigo)', fontSize: '1.3rem', marginTop: 16, lineHeight: 1.5 }}>{today.scriptureText}</p>}
                 {today.scriptureRef && <p className="muted" style={{ marginTop: 6 }}>{today.scriptureRef}</p>}
                 {today.thought && <p style={{ marginTop: 18, maxWidth: '52ch' }}>{today.thought}</p>}
-                {today.prayer && <p className="muted" style={{ marginTop: 14 }}><strong style={{ color: 'var(--ink)' }}>Prayer:</strong> {today.prayer}</p>}
+                <span className="more" style={{ marginTop: 20 }}>Read the full devotional <span className="arw">→</span></span>
               </div>
-            </div>
+            </Link>
           </div>
         </section>
       )}
@@ -51,12 +53,15 @@ export default async function DevotionalsPage() {
             <hr className="hr-gold" />
             <h2 style={{ fontSize: 'clamp(1.8rem,3vw,2.4rem)' }}>Recent devotionals</h2>
             <div className="cardgrid">
-              {rest.map((d, i) => (
-                <a className="card" href="#" key={d.id}>
-                  <div className="ph"><img className="img" src={fromPool(SCRIPTURE_POOL, i + 1)} alt="" /><div className="ph-grain"></div><span className="cap">{shortDay(d.date)}</span></div>
-                  <div className="body"><h3>{d.title}</h3>{d.scriptureText && <p>{d.scriptureText} {d.scriptureRef ? `— ${d.scriptureRef}` : ''}</p>}<span className="more">Read <span className="arw">→</span></span></div>
-                </a>
-              ))}
+              {rest.map((d, i) => {
+                const cardImg = (d.image && typeof d.image === 'object' && d.image.url) || fromPool(SCRIPTURE_POOL, i + 1)
+                return (
+                  <Link className="card" href={`/devotionals/${d.slug}`} key={d.id}>
+                    <div className="ph"><img className="img" src={cardImg} alt="" /><div className="ph-grain"></div><span className="cap">{shortDay(d.date)}</span></div>
+                    <div className="body"><h3>{d.title}</h3>{d.scriptureText && <p>{d.scriptureText} {d.scriptureRef ? `— ${d.scriptureRef}` : ''}</p>}<span className="more">Read <span className="arw">→</span></span></div>
+                  </Link>
+                )
+              })}
             </div>
           </div>
         </section>

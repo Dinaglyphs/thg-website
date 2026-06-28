@@ -1,6 +1,13 @@
 import Link from 'next/link'
+import type { FooterColumn, NavLink } from '@/lib/nav'
 
-export function Footer() {
+function FooterLink({ link }: { link: NavLink }) {
+  if (!link.href) return <li>{link.label}</li>
+  if (link.href.startsWith('/')) return <li><Link href={link.href}>{link.label}</Link></li>
+  return <li><a href={link.href}>{link.label}</a></li>
+}
+
+export function Footer({ columns }: { columns: FooterColumn[] }) {
   return (
     <footer className="site">
       <div className="wrap">
@@ -16,7 +23,7 @@ export function Footer() {
             </p>
             <div className="socials">
               <a href="https://www.instagram.com/rccgthg/" aria-label="Instagram">
-                <svg viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 1.8.3 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c-.1 1.2-.3 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2-.1-1.8-.3-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1-.4-2.2C2.6 15.6 2.6 15.2 2.6 12s0-3.6.1-4.9c.1-1.2.3-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4C8.4 2.2 8.8 2.2 12 2.2z" /></svg>
+                <svg viewBox="0 0 448 512"><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z" /></svg>
               </a>
               <a href="https://www.facebook.com/rccg.treasurehouse" aria-label="Facebook">
                 <svg viewBox="0 0 24 24"><path d="M13.5 21v-8.2h2.8l.4-3.2h-3.2V7.5c0-.9.3-1.6 1.6-1.6h1.7V3.1c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.3v2.3H7.5v3.2h2.6V21h3.4z" /></svg>
@@ -26,36 +33,17 @@ export function Footer() {
               </a>
             </div>
           </div>
-          <div>
-            <h4>Visit Us</h4>
-            <ul>
-              <li>Gadebridge Community Centre</li>
-              <li>The Nokes, Galley Hill</li>
-              <li>Hemel Hempstead, HP1 3LE</li>
-              <li style={{ marginTop: 8 }}><a href="tel:+447944731768">07944 731768</a></li>
-              <li><a href="mailto:info@rccgthg.org">info@rccgthg.org</a></li>
-            </ul>
-          </div>
-          <div>
-            <h4>Explore</h4>
-            <ul>
-              <li><Link href="/about">About</Link></li>
-              <li><Link href="/departments">Departments</Link></li>
-              <li><Link href="/sermons">Sermons</Link></li>
-              <li><Link href="/devotionals">Devotionals</Link></li>
-              <li><Link href="/events">Events</Link></li>
-              <li><Link href="/give">Give</Link></li>
-            </ul>
-          </div>
-          <div>
-            <h4>Gatherings</h4>
-            <ul>
-              <li>Sunday — 10:00am</li>
-              <li>Tuesday — 7:00pm</li>
-              <li>Wednesday — 7:00pm</li>
-              <li>Men&apos;s Prayer — 1st Sun 5pm</li>
-            </ul>
-          </div>
+
+          {columns.map((col, i) => (
+            <div key={i}>
+              <h4>{col.heading}</h4>
+              <ul>
+                {col.links.map((link, j) => (
+                  <FooterLink key={j} link={link} />
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
         <div className="fline">
           <span>© 2026 RCCG Treasure House of God · Registered Charity No. 1147670 · Company No. 07324586</span>

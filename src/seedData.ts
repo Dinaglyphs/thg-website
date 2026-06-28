@@ -125,4 +125,47 @@ export async function seedDatabase(payload: any) {
       },
     })
   }
+
+  const navg: any = await (payload as any).findGlobal({ slug: 'navigation' })
+  if (!navg?.header || navg.header.length === 0) {
+    await (payload as any).updateGlobal({
+      slug: 'navigation',
+      data: {
+        header: [
+          { label: 'About', href: '/about' },
+          { label: 'Departments', href: '/departments' },
+          { label: 'Media', children: [
+            { label: 'Sermons', href: '/sermons' },
+            { label: 'Devotionals', href: '/devotionals' },
+          ] },
+          { label: 'Events', href: '/events' },
+          { label: 'Contact', href: '/contact' },
+          { label: "I'm New", href: '/im-new' },
+        ],
+        footer: [
+          { heading: 'Visit Us', links: [
+            { label: 'Gadebridge Community Centre' },
+            { label: 'The Nokes, Galley Hill' },
+            { label: 'Hemel Hempstead, HP1 3LE' },
+            { label: '07944 731768', href: 'tel:+447944731768' },
+            { label: 'info@rccgthg.org', href: 'mailto:info@rccgthg.org' },
+          ] },
+          { heading: 'Explore', links: [
+            { label: 'About', href: '/about' },
+            { label: 'Departments', href: '/departments' },
+            { label: 'Sermons', href: '/sermons' },
+            { label: 'Devotionals', href: '/devotionals' },
+            { label: 'Events', href: '/events' },
+            { label: 'Give', href: '/give' },
+          ] },
+          { heading: 'Gatherings', links: [
+            { label: 'Sunday — 10:00am' },
+            { label: 'Tuesday — 7:00pm' },
+            { label: 'Wednesday — 7:00pm' },
+            { label: "Men's Prayer — 1st Sun 5pm" },
+          ] },
+        ],
+      },
+    })
+  }
 }

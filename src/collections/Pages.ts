@@ -34,6 +34,23 @@ export const Pages: CollectionConfig = {
     { name: 'body', type: 'richText', label: 'Main content' },
     {
       type: 'group',
+      name: 'nav',
+      label: 'Navigation placement',
+      admin: { description: 'Optionally add this page to the top menu and/or the footer.' },
+      fields: [
+        { name: 'showInHeader', type: 'checkbox', label: 'Show in the top menu' },
+        {
+          name: 'footerColumn',
+          type: 'text',
+          label: 'Footer column',
+          admin: { description: 'To show in the footer, type the exact heading of a footer column (e.g. “Explore”). Leave blank to hide from the footer.' },
+        },
+        { name: 'navLabel', type: 'text', label: 'Menu label (optional)', admin: { description: 'Overrides the page title in the menus.' } },
+        { name: 'order', type: 'number', label: 'Order', admin: { description: 'Lower numbers appear first among page links.' } },
+      ],
+    },
+    {
+      type: 'group',
       name: 'seo',
       label: 'SEO',
       fields: [

@@ -14,27 +14,27 @@ const px = (id: number, w = 1200): string =>
 
 // One relevant image per department, keyed by slug.
 export const DEPT_IMAGE: Record<string, string> = {
-  children: px(8422137), // diverse children in a classroom
-  youth: px(5325719), // group of cheerful teenagers
+  children: px(14935332), // joyful African children
+  youth: px(32617902), // young friends, Abuja
   'workers-in-training': px(34612053), // hands engaged in Bible study
   choir: px(30550589), // church choir singing (Lagos)
   'creative-arts-drama': px(31746939), // performer under stage lights (Ibadan)
-  'house-fellowship': px(8468750), // small group praying and reading together
-  'good-women': px(5254676), // women sharing a joyful moment
-  "mens-fellowship": px(16257489), // group of men, fellowship
+  'house-fellowship': px(6860844), // small group praying and singing at home
+  'good-women': px(37629980), // women in colourful dress, joyful embrace
+  "mens-fellowship": px(35388499), // young men worshipping in church
 }
 
 // Thematic imagery used in hero and feature panels.
 export const IMG = {
-  hero: px(34328505, 1500), // lively worship under colourful lights
+  hero: px(8815064, 1500), // joyful African congregation in worship
   scripture: px(15382621), // an open Bible, softly lit
   sermon: px(8815033, 1500), // pastor delivering a sermon, hands raised
-  event: px(34328516, 1500), // congregation raising hands in worship
+  event: px(34770978, 1500), // an enthusiastic worship gathering
 }
 
 // Rotating pools for lists where there isn't a one-to-one subject.
-const DEPT_POOL = [px(8422137), px(5325719), px(30550589), px(8468750)]
-export const SERMON_POOL = [px(8815033), px(12093922), px(8815002), px(29422232)]
+const DEPT_POOL = [px(14935332), px(32617902), px(30550589), px(6860844)]
+export const SERMON_POOL = [px(8815033), px(8815002), px(12824196), px(34623024)]
 export const SCRIPTURE_POOL = [px(15382621), px(8268309), px(9446065), px(6186376)]
 
 // Department image by slug, falling back to a rotating pool.

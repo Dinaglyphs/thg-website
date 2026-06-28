@@ -107,7 +107,8 @@ h1,h2,h3,h4{font-family:var(--display);color:var(--ink);font-weight:600;line-hei
 .mobile-menu nav a:first-child{border-top:0}
 .mobile-menu nav a[aria-current]{color:var(--indigo)}
 .mobile-menu nav .btn{margin-top:18px;justify-content:center}
-@media(max-width:1080px){.menu{display:none}.header-cta .visit{display:none}.nav-toggle{display:inline-flex}.mobile-menu{display:block}}
+@media(max-width:1080px){.menu{display:none}.header-cta .visit{display:none}.header-cta .btn-mini{display:none}.nav-toggle{display:inline-flex}.mobile-menu{display:block}}
+@media(max-width:430px){.wordmark .wm-name{font-size:1rem}.wordmark .wm-sub{letter-spacing:.15em}.wordmark img{width:38px;height:38px}}
 
 /* ---------- section scaffolding ---------- */
 section{padding:clamp(64px,9vw,128px) 0;position:relative}
@@ -139,7 +140,24 @@ section{padding:clamp(64px,9vw,128px) 0;position:relative}
 .hero-figure .figtag .k{font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
 .hero-figure .figtag .v{font-family:var(--display);font-size:1.5rem;font-weight:600;line-height:1}
 .hero-figure .figcap{position:absolute;right:22px;top:22px;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.5)}
-@media(max-width:880px){.hero-grid{grid-template-columns:1fr}.hero-figure{min-height:340px}}
+/* hero image: slow infinite zoom (Ken Burns) */
+.hero-figure .img{animation:heroZoom 24s ease-in-out infinite alternate;transform-origin:center;will-change:transform}
+@keyframes heroZoom{from{transform:scale(1.001)}to{transform:scale(1.1)}}
+@media(prefers-reduced-motion:reduce){.hero-figure .img{animation:none}}
+/* mobile/tablet hero: the image becomes the backdrop behind the copy */
+@media(max-width:880px){
+  .hero-grid{grid-template-columns:1fr;position:relative}
+  .hero-figure{position:absolute;inset:0;min-height:0;z-index:0}
+  .hero-figure::after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(20,17,58,.5),rgba(20,17,58,.78))}
+  .hero-figure .figtag,.hero-figure .figcap{display:none}
+  .hero-copy{position:relative;z-index:2;max-width:none;margin:0;color:#fff;padding:clamp(52px,13vw,92px) clamp(24px,6vw,40px)}
+  .hero-copy .label{color:rgba(255,255,255,.82)}
+  .hero h1,.hero h1 .em{color:#fff}
+  .hero .lead{color:rgba(255,255,255,.92);max-width:46ch}
+  .hero-actions .btn--solid{background:#fff;color:var(--indigo);border-color:#fff}
+  .hero-actions .btn--line{color:#fff;border-color:rgba(255,255,255,.55)}
+  .hero-actions .btn--line:hover{background:rgba(255,255,255,.12)}
+}
 
 /* hero meta bar */
 .metabar{background:var(--indigo);color:#fff}
@@ -204,6 +222,16 @@ section{padding:clamp(64px,9vw,128px) 0;position:relative}
 .duo-c{background-color:#1d1950;background-image:radial-gradient(110% 90% at 30% 20%,#3a3486,transparent 60%),linear-gradient(150deg,#1d1950,#0f1030)}
 .duo-d{background-color:#1a1a4e;background-image:radial-gradient(120% 90% at 75% 10%,#2f9d57,transparent 60%),linear-gradient(160deg,#1a1a4e,#101536)}
 .ph-grain{position:absolute;inset:0;opacity:.18;background-image:radial-gradient(rgba(255,255,255,.5) 1px,transparent 1.4px);background-size:22px 22px}
+/* glassy reflection on hover — pointer devices only */
+@media (hover:hover) and (pointer:fine){
+  .card::after{content:"";position:absolute;inset:0;z-index:3;pointer-events:none;border-radius:inherit;background:linear-gradient(135deg,rgba(255,255,255,.28) 0%,rgba(255,255,255,.07) 25%,transparent 46%);opacity:0;transition:opacity .4s var(--ease)}
+  .card:hover::after{opacity:1}
+}
+/* touch devices: never hold a hover/tilt state */
+@media (hover:none){
+  .card:hover .ph .img{transform:none}
+  .card:hover{box-shadow:none}
+}
 
 /* ---------- event cards ---------- */
 .evlist{display:grid;gap:18px;margin-top:44px}
@@ -272,3 +300,32 @@ footer.site a:hover{color:var(--gold)}
 
 /* small SVG icon helper */
 .ico{width:18px;height:18px;flex:none;stroke:currentColor;fill:none;stroke-width:1.6}
+
+/* ---------- devotional: today's word ---------- */
+.devotion-today{display:grid;grid-template-columns:.95fr 1.05fr;border:1px solid var(--line);border-radius:18px;overflow:hidden;background:var(--surface);color:var(--ink)}
+.devotion-today__media{position:relative;min-height:340px;overflow:hidden}
+.devotion-today__media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease)}
+.devotion-today:hover .devotion-today__media img{transform:scale(1.04)}
+.devotion-today__media::after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,transparent 55%,rgba(20,17,58,.5))}
+.devotion-today__media .cap{position:absolute;left:18px;bottom:16px;z-index:2;font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.9)}
+.devotion-today__body{padding:clamp(28px,4vw,48px);display:flex;flex-direction:column;justify-content:center}
+@media(max-width:760px){.devotion-today{grid-template-columns:1fr}.devotion-today__media{min-height:0;aspect-ratio:16/10}}
+
+/* ---------- devotional: single edition ---------- */
+.dev-banner{position:relative;min-height:clamp(320px,52vh,520px);display:flex;align-items:flex-end;overflow:hidden;background:var(--indigo-900)}
+.dev-banner .img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.dev-banner__veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,17,58,.35) 0%,rgba(20,17,58,.82) 100%)}
+.dev-banner__inner{position:relative;z-index:2;padding-top:48px;padding-bottom:clamp(36px,5vw,60px);color:#fff}
+.dev-back{display:inline-block;margin-bottom:22px;font-size:.9rem;color:rgba(255,255,255,.82)}
+.dev-back:hover{color:#fff}
+.dev-banner__inner h1{color:#fff;font-size:clamp(2.2rem,5vw,3.6rem);line-height:1.05;letter-spacing:-.02em;margin-top:14px;max-width:18ch}
+.dev-ref{margin-top:16px;color:var(--gold);font-size:1rem;letter-spacing:.02em}
+.dev-body{max-width:760px;margin:0 auto}
+.dev-scripture{font-family:var(--display);font-style:italic;font-size:clamp(1.5rem,3vw,2.1rem);line-height:1.4;color:var(--indigo);border-left:3px solid var(--gold);padding-left:clamp(18px,3vw,28px);margin:0}
+.dev-scripture cite{display:block;font-style:normal;font-family:var(--body);font-size:.95rem;color:var(--muted);margin-top:14px}
+.dev-lead{font-size:1.2rem;line-height:1.7;margin-top:34px;color:var(--ink)}
+.dev-rich{margin-top:22px}
+.dev-prayer{margin-top:40px;background:var(--paper-2);border:1px solid var(--line);border-radius:14px;padding:clamp(22px,3vw,30px)}
+.dev-prayer .label{color:var(--gold)}
+.dev-prayer p{margin-top:10px;font-size:1.08rem;line-height:1.6}
+.dev-foot{margin-top:48px;padding-top:28px;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between;align-items:center}

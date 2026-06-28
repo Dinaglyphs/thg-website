@@ -4,6 +4,7 @@ import React from 'react'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
 import { TiltCards } from '@/components/TiltCards'
+import { getNav } from '@/lib/nav'
 
 export const metadata: Metadata = {
   title: {
@@ -14,13 +15,14 @@ export const metadata: Metadata = {
     'A warm, Bible-believing church family in Hemel Hempstead. Join us Sundays at 10am — everyone is welcome.',
 }
 
-export default function FrontendLayout({ children }: { children: React.ReactNode }) {
+export default async function FrontendLayout({ children }: { children: React.ReactNode }) {
+  const nav = await getNav()
   return (
     <html lang="en">
       <body>
-        <Header />
+        <Header items={nav.header} />
         <main>{children}</main>
-        <Footer />
+        <Footer columns={nav.footer} />
         <TiltCards />
       </body>
     </html>
