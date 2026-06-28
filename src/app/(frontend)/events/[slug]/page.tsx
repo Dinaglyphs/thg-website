@@ -70,7 +70,12 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
   const online = e.format === 'online'
   const mapQuery = encodeURIComponent([e.location, contact.postcode].filter(Boolean).join(', '))
   const canRegister = e.registrationEnabled !== false
-  const registerHref = e.registrationUrl || '#register'
+  // The Register button points to the event's external link (e.g. a Google
+  // Form). If none is set, it falls back to emailing the church.
+  const registerHref =
+    e.registrationUrl ||
+    (contact.email ? `mailto:${contact.email}?subject=${encodeURIComponent('Register: ' + e.title)}` : '/contact')
+  const registerExternal = !!e.registrationUrl
 
   return (
     <article className="evt">
@@ -103,23 +108,6 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
                 <p>{e.guest}</p>
               </div>
             )}
-
-            <div id="register" className="evt-register">
-              <h2>{canRegister ? 'Register to attend' : 'Join us'}</h2>
-              <p className="muted">{canRegister ? 'Let us know you’re coming and we’ll have everything ready for you. Registration is free.' : 'Everyone is welcome — simply come along.'}</p>
-              {canRegister && !e.registrationUrl && (
-                <form style={{ display: 'grid', gap: 12, maxWidth: 460, marginTop: 18 }}>
-                  <input type="text" placeholder="Full name" style={{ padding: '13px 14px', borderRadius: 8, border: '1px solid var(--line)', fontFamily: 'var(--body)', fontSize: '1rem' }} />
-                  <input type="email" placeholder="you@email.com" style={{ padding: '13px 14px', borderRadius: 8, border: '1px solid var(--line)', fontFamily: 'var(--body)', fontSize: '1rem' }} />
-                  <button className="btn btn--accent" style={{ justifyContent: 'center' }}>Register <span className="arw">→</span></button>
-                </form>
-              )}
-              {canRegister && e.registrationUrl && (
-                <div style={{ marginTop: 18 }}>
-                  <a className="btn btn--accent" href={e.registrationUrl} target="_blank" rel="noopener noreferrer">Register to attend <span className="arw">→</span></a>
-                </div>
-              )}
-            </div>
           </div>
 
           <aside className="evt-aside">
@@ -137,7 +125,7 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
               {e.guest && <div className="evt-row"><span className="k">Guest</span><span className="v">{e.guest}</span></div>}
 
               <div className="evt-actions">
-                {canRegister && <a className="btn btn--accent" href={registerHref} {...(e.registrationUrl ? { target: '_blank', rel: 'noopener noreferrer' } : {})} style={{ justifyContent: 'center' }}>Register <span className="arw">→</span></a>}
+                {canRegister && <a className="btn btn--accent" href={registerHref} {...(registerExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {})} style={{ justifyContent: 'center' }}>Register <span className="arw">→</span></a>}
                 <a className="btn btn--line" href={calendarLink(e)} target="_blank" rel="noopener noreferrer" style={{ justifyContent: 'center' }}>Add to calendar</a>
               </div>
             </div>
