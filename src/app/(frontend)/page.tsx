@@ -10,7 +10,7 @@ export default async function HomePage() {
   const payload = await getPayload({ config })
   const [services, eventsRes, deptRes, devRes] = await Promise.all([
     payload.findGlobal({ slug: 'service-times' }),
-    payload.find({ collection: 'events', sort: 'date', limit: 2 }),
+    payload.find({ collection: 'events', sort: 'date', limit: 2 }).catch(() => ({ docs: [] as any[] })),
     payload.find({ collection: 'departments', where: { kind: { equals: 'ministry' } }, sort: 'order', limit: 3 }),
     payload.find({ collection: 'devotionals', sort: '-date', limit: 1 }),
   ])
@@ -135,8 +135,8 @@ export default async function HomePage() {
             {events.map((e) => (
               <div className="event" key={e.id}>
                 <div className="date"><div className="d">{dayNum(e.date)}</div><div className="m">{monShort(e.date)}</div></div>
-                <div className="info"><span className={`tag ${e.format === 'online' ? 'tag--online' : 'tag--inperson'}`}>{e.format === 'online' ? 'Online' : 'In person'}</span><h3 style={{ marginTop: 8 }}>{e.title}</h3><div className="meta">{e.time && <span>{e.time}</span>}{e.location && <span>{e.location}</span>}</div></div>
-                <div className="actions"><Link className="btn btn--line btn-mini" href="/events">Register</Link></div>
+                <div className="info"><span className={`tag ${e.format === 'online' ? 'tag--online' : 'tag--inperson'}`}>{e.format === 'online' ? 'Online' : 'In person'}</span><h3 style={{ marginTop: 8 }}><Link href={`/events/${e.slug}`} style={{ color: 'inherit' }}>{e.title}</Link></h3><div className="meta">{e.time && <span>{e.time}</span>}{e.location && <span>{e.location}</span>}</div></div>
+                <div className="actions"><Link className="btn btn--line btn-mini" href={`/events/${e.slug}`}>View</Link></div>
               </div>
             ))}
           </div>

@@ -27,6 +27,8 @@ export const Events: CollectionConfig = {
         { label: 'Online', value: 'online' },
       ],
     },
+    { name: 'guest', type: 'text', label: 'Special guest / minister', admin: { description: 'Optional — e.g. "Pastor John Doe, Guest Minister".' } },
+    { name: 'cost', type: 'text', label: 'Cost', admin: { description: 'Optional — e.g. "Free entry". Leave blank to hide.' } },
     { name: 'excerpt', type: 'textarea', label: 'Short description' },
     { name: 'image', type: 'upload', relationTo: 'media', label: 'Image' },
     { name: 'body', type: 'richText', label: 'Full details' },
@@ -36,6 +38,7 @@ export const Events: CollectionConfig = {
       label: 'Allow people to register',
       defaultValue: true,
     },
+    { name: 'registrationUrl', type: 'text', label: 'External registration link', admin: { description: 'Optional — if set, the Register button links here. Otherwise it opens the on-page form.' } },
     { name: 'featured', type: 'checkbox', label: 'Feature at top of Events page', defaultValue: false },
   ],
 }

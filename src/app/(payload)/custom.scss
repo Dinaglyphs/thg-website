@@ -1,21 +1,51 @@
-/* ---- Treasure House of God — admin brand ---- */
+/* ---- Treasure House of God — admin brand ----
+   Themes the Payload admin to match the live site: paper background,
+   Fraunces (display) + Hanken Grotesk (body) fonts, emerald / indigo / gold. */
+
+@font-face { font-family: 'Fraunces'; src: url('/fonts/fraunces-latin-400-normal.woff') format('woff'); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Fraunces'; src: url('/fonts/fraunces-latin-400-italic.woff') format('woff'); font-weight: 400; font-style: italic; font-display: swap; }
+@font-face { font-family: 'Fraunces'; src: url('/fonts/fraunces-latin-600-normal.woff') format('woff'); font-weight: 600; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Fraunces'; src: url('/fonts/fraunces-latin-700-normal.woff') format('woff'); font-weight: 700; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Hanken Grotesk'; src: url('/fonts/hanken-grotesk-latin-400-normal.woff') format('woff'); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Hanken Grotesk'; src: url('/fonts/hanken-grotesk-latin-500-normal.woff') format('woff'); font-weight: 500; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Hanken Grotesk'; src: url('/fonts/hanken-grotesk-latin-600-normal.woff') format('woff'); font-weight: 600; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Hanken Grotesk'; src: url('/fonts/hanken-grotesk-latin-700-normal.woff') format('woff'); font-weight: 700; font-style: normal; font-display: swap; }
 
 :root {
   /* Emerald as the primary action/success accent */
   --color-success-500: #137a40;
   --color-success-600: #0f6b38;
   --color-success-400: #1b8a4c;
+
+  /* Brand fonts */
+  --font-body: 'Hanken Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-serif: 'Fraunces', Georgia, serif;
 }
 
-/* Login screen — subtle branded backdrop behind the sign-in card */
+/* Warm paper canvas to match the site (light theme) */
+html[data-theme='light'] {
+  --theme-bg: #f4f1e8;
+  --theme-elevation-0: #ffffff;
+}
+
+/* Brand typefaces */
+body { font-family: var(--font-body); }
+h1, h2, h3, h4,
+.step-nav,
+.doc-header__title {
+  font-family: 'Fraunces', Georgia, serif;
+  letter-spacing: -0.01em;
+}
+
+/* Gold accent for the active nav item */
+.nav__link.active,
+.nav a[aria-current='page'] { color: #b9882f; }
+
+/* Login screen — subtle branded backdrop */
 .template-minimal {
   background-image:
-    radial-gradient(circle at 82% 14%, rgba(196, 154, 60, 0.1), transparent 42%),
-    radial-gradient(circle at 14% 90%, rgba(33, 28, 94, 0.08), transparent 46%);
+    radial-gradient(circle at 82% 14%, rgba(196, 154, 60, 0.12), transparent 42%),
+    radial-gradient(circle at 14% 90%, rgba(33, 28, 94, 0.10), transparent 46%);
 }
-
-/* A touch more presence for the THG name under the login logo */
 .login__brand,
-.graphic-logo {
-  max-width: 320px;
-}
+.graphic-logo { max-width: 320px; }

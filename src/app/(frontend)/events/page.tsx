@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { getPayload } from 'payload'
 import config from '@payload-config'
 import { dayNum, monShort, fullDate } from '@/lib/format'
@@ -10,7 +11,9 @@ export const dynamic = 'force-dynamic'
 export default async function EventsPage() {
   const payload = await getPayload({ config })
   const hero = await getPageHero('events')
-  const { docs: events } = await payload.find({ collection: 'events', sort: 'date', limit: 100 })
+  const { docs: events } = await payload
+    .find({ collection: 'events', sort: 'date', limit: 100 })
+    .catch(() => ({ docs: [] as any[] }))
 
   const featured = (events.find((e: any) => e.featured) || events[0]) as any
 
@@ -38,8 +41,7 @@ export default async function EventsPage() {
                 <h2 style={{ fontSize: 'clamp(1.8rem,3vw,2.6rem)', marginTop: 12 }}>{featured.title}</h2>
                 {featured.excerpt && <p className="muted" style={{ marginTop: 14, maxWidth: '46ch' }}>{featured.excerpt}</p>}
                 <div style={{ display: 'flex', gap: 14, flexWrap: 'wrap', marginTop: 26 }}>
-                  <a className="btn btn--accent" href="#register">Register to attend <span className="arw">→</span></a>
-                  <a className="btn btn--line" href="#">Add to calendar</a>
+                  <Link className="btn btn--accent" href={`/events/${featured.slug}`}>View details &amp; register <span className="arw">→</span></Link>
                 </div>
               </div>
             </div>
@@ -59,10 +61,10 @@ export default async function EventsPage() {
                   <div className="date"><div className="d">{dayNum(e.date)}</div><div className="m">{monShort(e.date)}</div></div>
                   <div className="info">
                     <span className={`tag ${e.format === 'online' ? 'tag--online' : 'tag--inperson'}`}>{e.format === 'online' ? 'Online' : 'In person'}</span>
-                    <h3 style={{ marginTop: 8 }}>{e.title}</h3>
+                    <h3 style={{ marginTop: 8 }}><Link href={`/events/${e.slug}`} style={{ color: 'inherit' }}>{e.title}</Link></h3>
                     <div className="meta">{e.time && <span>{e.time}</span>}{e.location && <span>{e.location}</span>}</div>
                   </div>
-                  <div className="actions">{e.registrationEnabled !== false && <a className="btn btn--line btn-mini" href="#register">Register</a>}</div>
+                  <div className="actions"><Link className="btn btn--line btn-mini" href={`/events/${e.slug}`}>View details</Link></div>
                 </div>
               ))}
             </div>

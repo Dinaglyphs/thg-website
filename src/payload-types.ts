@@ -98,10 +98,12 @@ export interface Config {
   };
   fallbackLocale: null;
   globals: {
+    navigation: Navigation;
     'service-times': ServiceTime;
     'site-settings': SiteSetting;
   };
   globalsSelect: {
+    navigation: NavigationSelect<false> | NavigationSelect<true>;
     'service-times': ServiceTimesSelect<false> | ServiceTimesSelect<true>;
     'site-settings': SiteSettingsSelect<false> | SiteSettingsSelect<true>;
   };
@@ -166,6 +168,24 @@ export interface Page {
     };
     [k: string]: unknown;
   } | null;
+  /**
+   * Optionally add this page to the top menu and/or the footer.
+   */
+  nav?: {
+    showInHeader?: boolean | null;
+    /**
+     * To show in the footer, type the exact heading of a footer column (e.g. “Explore”). Leave blank to hide from the footer.
+     */
+    footerColumn?: string | null;
+    /**
+     * Overrides the page title in the menus.
+     */
+    navLabel?: string | null;
+    /**
+     * Lower numbers appear first among page links.
+     */
+    order?: number | null;
+  };
   seo?: {
     metaTitle?: string | null;
     metaDescription?: string | null;
@@ -281,6 +301,14 @@ export interface Event {
   time?: string | null;
   location?: string | null;
   format?: ('in-person' | 'online') | null;
+  /**
+   * Optional — e.g. "Pastor John Doe, Guest Minister".
+   */
+  guest?: string | null;
+  /**
+   * Optional — e.g. "Free entry". Leave blank to hide.
+   */
+  cost?: string | null;
   excerpt?: string | null;
   image?: (number | null) | Media;
   body?: {
@@ -299,6 +327,10 @@ export interface Event {
     [k: string]: unknown;
   } | null;
   registrationEnabled?: boolean | null;
+  /**
+   * Optional — if set, the Register button links here. Otherwise it opens the on-page form.
+   */
+  registrationUrl?: string | null;
   featured?: boolean | null;
   updatedAt: string;
   createdAt: string;
@@ -512,6 +544,14 @@ export interface PagesSelect<T extends boolean = true> {
         intro?: T;
       };
   body?: T;
+  nav?:
+    | T
+    | {
+        showInHeader?: T;
+        footerColumn?: T;
+        navLabel?: T;
+        order?: T;
+      };
   seo?:
     | T
     | {
@@ -547,10 +587,13 @@ export interface EventsSelect<T extends boolean = true> {
   time?: T;
   location?: T;
   format?: T;
+  guest?: T;
+  cost?: T;
   excerpt?: T;
   image?: T;
   body?: T;
   registrationEnabled?: T;
+  registrationUrl?: T;
   featured?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -706,6 +749,56 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   createdAt?: T;
 }
 /**
+ * The top menu and the footer. Drag any row by its handle to reorder.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "navigation".
+ */
+export interface Navigation {
+  id: number;
+  /**
+   * Links in the top navigation bar. Drag to reorder. Add sub-links to turn an item into a dropdown (e.g. “Media”).
+   */
+  header?:
+    | {
+        label: string;
+        /**
+         * e.g. /about — leave blank if this item only opens a dropdown.
+         */
+        href?: string | null;
+        children?:
+          | {
+              label: string;
+              href: string;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Each footer column has a heading and a list of items. Drag columns or items to reorder.
+   */
+  footer?:
+    | {
+        heading: string;
+        links?:
+          | {
+              label: string;
+              /**
+               * Leave blank to show as plain text (e.g. an address line).
+               */
+              href?: string | null;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
  * Your regular weekly and monthly gatherings.
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -771,6 +864,42 @@ export interface SiteSetting {
   };
   updatedAt?: string | null;
   createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "navigation_select".
+ */
+export interface NavigationSelect<T extends boolean = true> {
+  header?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+        children?:
+          | T
+          | {
+              label?: T;
+              href?: T;
+              id?: T;
+            };
+        id?: T;
+      };
+  footer?:
+    | T
+    | {
+        heading?: T;
+        links?:
+          | T
+          | {
+              label?: T;
+              href?: T;
+              id?: T;
+            };
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
